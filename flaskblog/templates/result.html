@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block content %}
+<article class="media content-section">
+
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href=""></a>
+            <small class="text-muted"></small>
+        </div>
+        <h2><a class="article-title" href="">Make Easy Predictions!</a></h2>
+        <p class="article-content"> To help make our machine perform accurate predictions, we recommend uploading clean
+            and unaltered xrays to our website.
+            We also perform resizing of the uploaded images to 320x320 pixels. If you face any issues, do email us so we can make this platform better.
+        </p>
+        <br>
+    </div>
+</article>
+<div class="content-section">
+    <form method="POST" action="" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+
+            <div class="form-group">
+                {{ form.picture.label() }}
+                {{ form.picture(class="form-control-file") }}
+                {% if form.picture.errors %}
+                {% for error in form.picture.errors %}
+                <span class="text-danger">{{ error }}</span></br>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+    <br>
+    <b>The Predicted disease is : {{ labels }}<br>
+        <!-- {% for disease in labels %}
+        <p>{{ disease }}</p>
+        {% endfor %} -->
+    <br><br>
+    <p>Input Image :   </p><img src="{{ url_for('static', filename=original ) }}"><br><br><br>
+    <p>Generated Heatmap :  </p><img src="{{ url_for('static', filename=heatmap ) }}"></b>
+</div>
+{% endblock content %}
